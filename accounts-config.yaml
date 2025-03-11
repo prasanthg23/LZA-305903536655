@@ -30,7 +30,7 @@ workloadAccounts:
       mandatory account. Note, the account name key does not need to match the
       AWS account name.
     email: psanthg+asmin@amazon.com
-    organizationalUnit: Root
+    organizationalUnit: Sandbox
     warm: false
   - name: Training
     description: >-
