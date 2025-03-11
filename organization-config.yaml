@@ -1,0 +1,9 @@
+enable: true
+organizationalUnits:
+  - name: Security
+  - name: Infrastructure
+  - name: testlambda
+    # ignore: true
+serviceControlPolicies: []
+taggingPolicies: []
+backupPolicies: []
