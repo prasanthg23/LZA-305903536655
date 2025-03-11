@@ -1,8 +1,8 @@
 enable: true
 organizationalUnits:
   - name: Security
-  - name: Infrastructure
-  - name: testlambda
+  - name: AFT management account
+  - name: Sandbox
     # ignore: true
 serviceControlPolicies: []
 taggingPolicies: []
