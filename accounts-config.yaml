@@ -4,7 +4,7 @@ mandatoryAccounts:
       The management (primary) account. Do not change the name field for this
       mandatory account. Note, the account name key does not need to match the
       AWS account name.
-    email: psanthg+ctmaster@amazon.com
+    email: psanthg+aftaccnt@amazon.com
     organizationalUnit: Root
     warm: false
   - name: LogArchive
@@ -12,7 +12,7 @@ mandatoryAccounts:
       The log archive account. Do not change the name field for this mandatory
       account. Note, the account name key does not need to match the AWS account
       name.
-    email: psanthg+loglza@amazon.com
+    email: psanthg+logaft@amazon.com
     organizationalUnit: Security
     warm: false
   - name: Audit
@@ -20,23 +20,31 @@ mandatoryAccounts:
       The security audit account (also referred to as the audit account). Do not
       change the name field for this mandatory account. Note, the account name
       key does not need to match the AWS account name.
-    email: psanthg+auditlza@amazon.com
+    email: psanthg+auditaft@amazon.com
     organizationalUnit: Security
     warm: false
 workloadAccounts: 
-  - name: labtestaccntlza
+  - name: adminavm
     description: >-
       The management (primary) account. Do not change the name field for this
       mandatory account. Note, the account name key does not need to match the
       AWS account name.
-    email: psanthg+labtestlzactmaster@amazon.com
-    organizationalUnit: Infrastructure
+    email: psanthg+asmin@amazon.com
+    organizationalUnit: Root
     warm: false
-  - name: testlambda
+  - name: Training
     description: >-
       The management (primary) account. Do not change the name field for this
       mandatory account. Note, the account name key does not need to match the
       AWS account name.
-    email: psanthg+lambdatest@amazon.com
-    organizationalUnit: testlambda
+    email: psanth+training@amazon.com
+    organizationalUnit: Sandbox
     warm: false  
+  - name: aft-main
+    description: >-
+      The management (primary) account. Do not change the name field for this
+      mandatory account. Note, the account name key does not need to match the
+      AWS account name.
+    email: psanthg+aftact@amazon.com
+    organizationalUnit: AFT management account
+    warm: false 
