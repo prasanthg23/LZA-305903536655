@@ -23,15 +23,31 @@ mandatoryAccounts:
     email: psanthg+auditaft@amazon.com
     organizationalUnit: Security
     warm: false
-workloadAccounts: 
+  - name: aft-main
+    description: >-
+      The management (primary) account. Do not change the name field for this
+      mandatory account. Note, the account name key does not need to match the
+      AWS account name.
+    email: psanthg+aftact@amazon.com
+    organizationalUnit: Security
+    warm: false
   - name: adminavm
     description: >-
       The management (primary) account. Do not change the name field for this
       mandatory account. Note, the account name key does not need to match the
       AWS account name.
     email: psanthg+asmin@amazon.com
-    organizationalUnit: Sandbox
-    warm: false
+    organizationalUnit: Security
+    warm: false  
+workloadAccounts: 
+  # - name: adminavm
+  #   description: >-
+  #     The management (primary) account. Do not change the name field for this
+  #     mandatory account. Note, the account name key does not need to match the
+  #     AWS account name.
+  #   email: psanthg+asmin@amazon.com
+  #   organizationalUnit: Sandbox
+  #   warm: false
   - name: Training
     description: >-
       The management (primary) account. Do not change the name field for this
@@ -40,11 +56,11 @@ workloadAccounts:
     email: psanth+training@amazon.com
     organizationalUnit: Sandbox
     warm: false  
-  - name: aft-main
-    description: >-
-      The management (primary) account. Do not change the name field for this
-      mandatory account. Note, the account name key does not need to match the
-      AWS account name.
-    email: psanthg+aftact@amazon.com
-    organizationalUnit: AFT management account
-    warm: false 
+  # - name: aft-main
+  #   description: >-
+  #     The management (primary) account. Do not change the name field for this
+  #     mandatory account. Note, the account name key does not need to match the
+  #     AWS account name.
+  #   email: psanthg+aftact@amazon.com
+  #   organizationalUnit: AFT management account
+  #   warm: false 
