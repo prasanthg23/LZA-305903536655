@@ -49,7 +49,280 @@ awsConfig:
   enableConfigurationRecorder: false
   ruleSets: []
 cloudWatch:
-  metricSets: []
-  alarmSets: []
+  metricSets:
+    - regions:
+        - us-east-1
+      #####################################
+      # With landing zone version 3.0, AWS Control Tower now supports organization-level AWS CloudTrail trails.                                          #
+      # Going forward from landing zone 3.0, AWS Control Tower no longer will support account-level trails that AWS manages.                             #
+      # If your environment runs on prior version (3.0) of landing zone, you can change deployment targets for the metrics to Root organizational units  #
+      # Metrics deployment target should be management account for environment with landing zone version 3.0                                             #
+      # Please refer https://docs.aws.amazon.com/controltower/latest/userguide/2022-all.html#version-3.0 for more information                            #
+      #####################################
+      deploymentTargets:
+        accounts:
+          - Management
+      metrics:
+        # CIS 1.7 – Avoid the use of the "root" account
+        - filterName: RootAccountUsageMetricFilter
+          logGroupName: aws-controltower/CloudTrailLogs
+          filterPattern: '{$.userIdentity.type="Root" && $.userIdentity.invokedBy NOT EXISTS && $.eventType !="AwsServiceEvent"}'
+          metricNamespace: LogMetrics
+          metricName: RootAccountUsage
+          metricValue: "1"
+        # CIS 4.4 – Ensure a log metric filter and alarm exist for IAM policy changes
+        # - filterName: IAMPolicyChangesMetricFilter
+        #   logGroupName: aws-controltower/CloudTrailLogs
+        #   filterPattern: "{($.eventName=DeleteGroupPolicy) || ($.eventName=DeleteRolePolicy) || ($.eventName=DeleteUserPolicy) || ($.eventName=PutGroupPolicy) || ($.eventName=PutRolePolicy) || ($.eventName=PutUserPolicy) || ($.eventName=CreatePolicy) || ($.eventName=DeletePolicy) || ($.eventName=CreatePolicyVersion) || ($.eventName=DeletePolicyVersion) || ($.eventName=AttachRolePolicy) || ($.eventName=DetachRolePolicy) || ($.eventName=AttachUserPolicy) || ($.eventName=DetachUserPolicy) || ($.eventName=AttachGroupPolicy) || ($.eventName=DetachGroupPolicy)}"
+        #   metricNamespace: LogMetrics
+        #   metricName: IAMPolicyChanges
+        #   metricValue: "1"
+        # # CIS 4.5 – Ensure a log metric filter and alarm exist for CloudTrail configuration changes
+        # - filterName: CloudTrailChangesMetricFilter
+        #   logGroupName: aws-controltower/CloudTrailLogs
+        #   filterPattern: "{($.eventName=CreateTrail) || ($.eventName=UpdateTrail) || ($.eventName=DeleteTrail) || ($.eventName=StartLogging) || ($.eventName=StopLogging)}"
+        #   metricNamespace: LogMetrics
+        #   metricName: CloudTrailChanges
+        #   metricValue: "1"
+        # # CIS 4.6 – Ensure a log metric filter and alarm exist for AWS Management Console authentication failures
+        # - filterName: ConsoleAuthenticationFailureMetricFilter
+        #   logGroupName: aws-controltower/CloudTrailLogs
+        #   filterPattern: '{($.eventName=ConsoleLogin) && ($.errorMessage="Failed authentication")}'
+        #   metricNamespace: LogMetrics
+        #   metricName: ConsoleAuthenticationFailure
+        #   metricValue: "1"
+        # # CIS 4.7 – Ensure a log metric filter and alarm exist for disabling or scheduled deletion of customer created CMKs
+        # - filterName: DisableOrDeleteCMKMetricFilter
+        #   logGroupName: aws-controltower/CloudTrailLogs
+        #   filterPattern: "{($.eventSource=kms.amazonaws.com) && (($.eventName=DisableKey) || ($.eventName=ScheduleKeyDeletion))}"
+        #   metricNamespace: LogMetrics
+        #   metricName: DisableOrDeleteCMK
+        #   metricValue: "1"
+        # # CIS 4.8 – Ensure a log metric filter and alarm exist for S3 bucket policy changes
+        # - filterName: S3BucketPolicyChangesMetricFilter
+        #   logGroupName: aws-controltower/CloudTrailLogs
+        #   filterPattern: "{($.eventSource=s3.amazonaws.com) && (($.eventName=PutBucketAcl) || ($.eventName=PutBucketPolicy) || ($.eventName=PutBucketCors) || ($.eventName=PutBucketLifecycle) || ($.eventName=PutBucketReplication) || ($.eventName=DeleteBucketPolicy) || ($.eventName=DeleteBucketCors) || ($.eventName=DeleteBucketLifecycle) || ($.eventName=DeleteBucketReplication))}"
+        #   metricNamespace: LogMetrics
+        #   metricName: S3BucketPolicyChanges
+        #   metricValue: "1"
+        # # CIS 4.9 – Ensure a log metric filter and alarm exist for AWS Config configuration changes
+        # - filterName: AWSConfigChangesMetricFilter
+        #   logGroupName: aws-controltower/CloudTrailLogs
+        #   filterPattern: "{($.eventSource=config.amazonaws.com) && (($.eventName=StopConfigurationRecorder) || ($.eventName=DeleteDeliveryChannel) || ($.eventName=PutDeliveryChannel) || ($.eventName=PutConfigurationRecorder))}"
+        #   metricNamespace: LogMetrics
+        #   metricName: AWSConfigChanges
+        #   metricValue: "1"
+        # # CIS 4.10 – Ensure a log metric filter and alarm exist for security group changes
+        # - filterName: SecurityGroupChangesMetricFilter
+        #   logGroupName: aws-controltower/CloudTrailLogs
+        #   filterPattern: "{($.eventName=AuthorizeSecurityGroupIngress) || ($.eventName=AuthorizeSecurityGroupEgress) || ($.eventName=RevokeSecurityGroupIngress) || ($.eventName=RevokeSecurityGroupEgress) || ($.eventName=CreateSecurityGroup) || ($.eventName=DeleteSecurityGroup)}"
+        #   metricNamespace: LogMetrics
+        #   metricName: SecurityGroupChanges
+        #   metricValue: "1"
+        # # CIS 4.11 – Ensure a log metric filter and alarm exist for changes to Network Access Control Lists (NACL)
+        # - filterName: NetworkACLChangesMetricFilter
+        #   logGroupName: aws-controltower/CloudTrailLogs
+        #   filterPattern: "{($.eventName=CreateNetworkAcl) || ($.eventName=CreateNetworkAclEntry) || ($.eventName=DeleteNetworkAcl) || ($.eventName=DeleteNetworkAclEntry) || ($.eventName=ReplaceNetworkAclEntry) || ($.eventName=ReplaceNetworkAclAssociation)}"
+        #   metricNamespace: LogMetrics
+        #   metricName: NetworkACLChanges
+        #   metricValue: "1"
+        # # CIS 4.12 – Ensure a log metric filter and alarm exist for changes to network gateways
+        # - filterName: NetworkGatewayChangesMetricFilter
+        #   logGroupName: aws-controltower/CloudTrailLogs
+        #   filterPattern: "{($.eventName=CreateCustomerGateway) || ($.eventName=DeleteCustomerGateway) || ($.eventName=AttachInternetGateway) || ($.eventName=CreateInternetGateway) || ($.eventName=DeleteInternetGateway) || ($.eventName=DetachInternetGateway)}"
+        #   metricNamespace: LogMetrics
+        #   metricName: NetworkGatewayChanges
+        #   metricValue: "1"
+        # # CIS 4.13 – Ensure a log metric filter and alarm exist for route table changes
+        # - filterName: RouteTableChangesMetricFilter
+        #   logGroupName: aws-controltower/CloudTrailLogs
+        #   filterPattern: "{($.eventName=CreateRoute) || ($.eventName=CreateRouteTable) || ($.eventName=ReplaceRoute) || ($.eventName=ReplaceRouteTableAssociation) || ($.eventName=DeleteRouteTable) || ($.eventName=DeleteRoute) || ($.eventName=DisassociateRouteTable)}"
+        #   metricNamespace: LogMetrics
+        #   metricName: RouteTableChanges
+        #   metricValue: "1"
+        # # CIS 4.14 – Ensure a log metric filter and alarm exist for VPC changes
+        # - filterName: VPCChangesMetricFilter
+        #   logGroupName: aws-controltower/CloudTrailLogs
+        #   filterPattern: "{($.eventName=CreateVpc) || ($.eventName=DeleteVpc) || ($.eventName=ModifyVpcAttribute) || ($.eventName=AcceptVpcPeeringConnection) || ($.eventName=CreateVpcPeeringConnection) || ($.eventName=DeleteVpcPeeringConnection) || ($.eventName=RejectVpcPeeringConnection) || ($.eventName=AttachClassicLinkVpc) || ($.eventName=DetachClassicLinkVpc) || ($.eventName=DisableVpcClassicLink) || ($.eventName=EnableVpcClassicLink)}"
+        #   metricNamespace: LogMetrics
+        #   metricName: VPCChanges
+        #   metricValue: "1"
+        # # Monitor for the use of breakglass accounts
+        # - filterName: BreakglassAccountUsageMetricFilter
+        #   logGroupName: aws-controltower/CloudTrailLogs
+        #   filterPattern: "{ ($.userIdentity.userName = \"breakGlassUser0*\") && ($.userIdentity.invokedBy NOT EXISTS) && ($.eventType != \"AwsServiceEvent\") }"
+        #   metricNamespace: LogMetrics
+        #   metricName: BreakglassAccountUsage
+        #   metricValue: "1"
+  alarmSets:
+    - regions:
+        - us-east-1
+      #####################################
+      # With landing zone version 3.0, AWS Control Tower now supports organization-level AWS CloudTrail trails.                                          #
+      # Going forward from landing zone 3.0, AWS Control Tower no longer will support account-level trails that AWS manages.                             #
+      # If your environment runs on prior version (3.0) of landing zone, you can change deployment targets for the metrics to Root organizational units  #
+      # Metrics deployment target should be management account for environment with landing zone version 3.0                                             #
+      # Please refer https://docs.aws.amazon.com/controltower/latest/userguide/2022-all.html#version-3.0 for more information                            #
+      #####################################
+      deploymentTargets:
+        accounts:
+          - Management
+      alarms:
+        # CIS 1.7 – Avoid the use of the "root" account
+        - alarmName: CIS-1.7-RootAccountUsage
+          alarmDescription: Alarm for usage of "root" account
+          snsTopicName: Security
+          metricName: RootAccountUsage
+          namespace: LogMetrics
+          comparisonOperator: GreaterThanOrEqualToThreshold
+          evaluationPeriods: 1
+          period: 300
+          statistic: Sum
+          threshold: 1
+          treatMissingData: notBreaching
+        # # CIS 4.4 – Ensure a log metric filter and alarm exist for IAM policy changes
+        # - alarmName: CIS-4.4-IAMPolicyChanges
+        #   alarmDescription: Alarm for IAM policy changes
+        #   snsTopicName: Security
+        #   metricName: IAMPolicyChanges
+        #   namespace: LogMetrics
+        #   comparisonOperator: GreaterThanOrEqualToThreshold
+        #   evaluationPeriods: 1
+        #   period: 300
+        #   statistic: Average
+        #   threshold: 1
+        #   treatMissingData: notBreaching
+        # # CIS 4.5 – Ensure a log metric filter and alarm exist for CloudTrail configuration changes
+        # - alarmName: CIS-4.5-CloudTrailChanges
+        #   alarmDescription: Alarm for CloudTrail configuration changes
+        #   snsTopicName: Security
+        #   metricName: CloudTrailChanges
+        #   namespace: LogMetrics
+        #   comparisonOperator: GreaterThanOrEqualToThreshold
+        #   evaluationPeriods: 1
+        #   period: 300
+        #   statistic: Sum
+        #   threshold: 1
+        #   treatMissingData: notBreaching
+        # # CIS 4.6 – Ensure a log metric filter and alarm exist for AWS Management Console authentication failures
+        # - alarmName: CIS-4.6-ConsoleAuthenticationFailure
+        #   alarmDescription: Alarm exist for AWS Management Console authentication failures
+        #   snsTopicName: Security
+        #   metricName: ConsoleAuthenticationFailure
+        #   namespace: LogMetrics
+        #   comparisonOperator: GreaterThanOrEqualToThreshold
+        #   evaluationPeriods: 1
+        #   period: 300
+        #   statistic: Sum
+        #   threshold: 1
+        #   treatMissingData: notBreaching
+        # # CIS 4.7 – Ensure a log metric filter and alarm exist for disabling or scheduled deletion of customer created CMKs
+        # - alarmName: CIS-4.7-DisableOrDeleteCMK
+        #   alarmDescription: Alarm for disabling or scheduled deletion of customer created CMKs
+        #   snsTopicName: Security
+        #   metricName: DisableOrDeleteCMK
+        #   namespace: LogMetrics
+        #   comparisonOperator: GreaterThanOrEqualToThreshold
+        #   evaluationPeriods: 1
+        #   period: 300
+        #   statistic: Sum
+        #   threshold: 1
+        #   treatMissingData: notBreaching
+        # # CIS 4.8 – Ensure a log metric filter and alarm exist for S3 bucket policy changes
+        # - alarmName: CIS-4.8-S3BucketPolicyChanges.
+        #   alarmDescription: Alarm for S3 bucket policy changes
+        #   snsTopicName: Security
+        #   metricName: S3BucketPolicyChanges
+        #   namespace: LogMetrics
+        #   comparisonOperator: GreaterThanOrEqualToThreshold
+        #   evaluationPeriods: 1
+        #   period: 300
+        #   statistic: Average
+        #   threshold: 1
+        #   treatMissingData: notBreaching
+        # # CIS 4.9 – Ensure a log metric filter and alarm exist for AWS Config configuration changes
+        # - alarmName: CIS-4.9-AWSConfigChanges
+        #   alarmDescription: Alarm for AWS Config configuration changes
+        #   snsTopicName: Security
+        #   metricName: AWSConfigChanges
+        #   namespace: LogMetrics
+        #   comparisonOperator: GreaterThanOrEqualToThreshold
+        #   evaluationPeriods: 1
+        #   period: 300
+        #   statistic: Sum
+        #   threshold: 1
+        #   treatMissingData: notBreaching
+        # # CIS 4.10 – Ensure a log metric filter and alarm exist for security group changes
+        # - alarmName: CIS-4.10-SecurityGroupChanges
+        #   alarmDescription: Alarm for security group changes
+        #   snsTopicName: Security
+        #   metricName: SecurityGroupChanges
+        #   namespace: LogMetrics
+        #   comparisonOperator: GreaterThanOrEqualToThreshold
+        #   evaluationPeriods: 1
+        #   period: 300
+        #   statistic: Sum
+        #   threshold: 1
+        #   treatMissingData: notBreaching
+        # # CIS 4.11 – Ensure a log metric filter and alarm exist for changes to Network Access Control Lists (NACL)
+        # - alarmName: CIS-4.11-NetworkACLChanges
+        #   alarmDescription: Alarm for changes to Network Access Control Lists (NACL)
+        #   snsTopicName: Security
+        #   metricName: NetworkACLChanges
+        #   namespace: LogMetrics
+        #   comparisonOperator: GreaterThanOrEqualToThreshold
+        #   evaluationPeriods: 1
+        #   period: 300
+        #   statistic: Sum
+        #   threshold: 1
+        #   treatMissingData: notBreaching
+        # # CIS 4.12 – Ensure a log metric filter and alarm exist for changes to network gateways
+        # - alarmName: CIS-4.12-NetworkGatewayChanges
+        #   alarmDescription: Alarm for changes to network gateways
+        #   snsTopicName: Security
+        #   metricName: NetworkGatewayChanges
+        #   namespace: LogMetrics
+        #   comparisonOperator: GreaterThanOrEqualToThreshold
+        #   evaluationPeriods: 1
+        #   period: 300
+        #   statistic: Sum
+        #   threshold: 1
+        #   treatMissingData: notBreaching
+        # CIS 4.13 – Ensure a log metric filter and alarm exist for route table changes
+        # - alarmName: CIS-4.13-RouteTableChanges
+        #   alarmDescription: Alarm for route table changes
+        #   snsTopicName: Security
+        #   metricName: RouteTableChanges
+        #   namespace: LogMetrics
+        #   comparisonOperator: GreaterThanOrEqualToThreshold
+        #   evaluationPeriods: 1
+        #   period: 300
+        #   statistic: Average
+        #   threshold: 1
+        #   treatMissingData: notBreaching
+        # CIS 4.14 – Ensure a log metric filter and alarm exist for VPC changes
+        # - alarmName: CIS-3.14-VPCChanges
+        #   alarmDescription: Alarm for VPC changes
+        #   snsTopicName: Security
+        #   metricName: VPCChanges
+        #   namespace: LogMetrics
+        #   comparisonOperator: GreaterThanOrEqualToThreshold
+        #   evaluationPeriods: 1
+        #   period: 300
+        #   statistic: Sum
+        #   threshold: 1
+        #   treatMissingData: notBreaching
+        # Ensure a log metric filter and alarm exist for breakglass account usage
+        # - alarmName: BreakglassAccountUsage
+        #   alarmDescription: Alarm for usage of "breakglass" accounts
+        #   snsTopicName: Security
+        #   metricName: BreakglassAccountUsage
+        #   namespace: LogMetrics
+        #   comparisonOperator: GreaterThanOrEqualToThreshold
+        #   evaluationPeriods: 1
+        #   period: 300
+        #   statistic: Sum
+        #   threshold: 1
+        #   treatMissingData: notBreaching
 keyManagementService:
   keySets: []
