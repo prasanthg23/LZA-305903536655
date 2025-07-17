@@ -180,6 +180,25 @@ cloudWatch:
           statistic: Sum
           threshold: 1
           treatMissingData: notBreaching
+      logGroups:
+        - logGroupName: aws-lza-vpc-flowlogs
+          logRetentionInDays: 90
+          terminationProtected: false
+          encryption:
+           useLzaManagedKey: true
+          deploymentTargets:
+           accounts:
+            - Audit
+          # - Extension-CollectionManagement-NonProd
+          # - Gateway-PrivateLinks
+          # - Extension-DataCatalogue-Dev
+          # - Extension-DataCatalogue-Tst
+          # - Extension-DataVisualisation
+          # - Extension-DAStaging-NonProd
+          # - Extension-BWAP-Dissemination-Build
+          # - Extension-CensusTaskmasterUI-Build
+          # - Extension-CensusTaskmasterUI-Prod
+          # - Extension-CensusTaskmasterUI-NonProd
         # # CIS 4.4 – Ensure a log metric filter and alarm exist for IAM policy changes
         # - alarmName: CIS-4.4-IAMPolicyChanges
         #   alarmDescription: Alarm for IAM policy changes
@@ -326,3 +345,4 @@ cloudWatch:
         #   treatMissingData: notBreaching
 keyManagementService:
   keySets: []
+
