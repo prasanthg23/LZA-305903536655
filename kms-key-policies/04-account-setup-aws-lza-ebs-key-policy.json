@@ -16,8 +16,8 @@
             "Effect": "Allow",
             "Principal": {
                 "AWS": [
-                    "arn:aws:iam::305903536655:user/AdminUser1",
-                    "arn:aws:iam::305903536655:role/AdminRole"
+                    "arn:aws:iam::305903536655:user/*",
+                    "arn:aws:iam::305903536655:role/*"
                 ]
             },
             "Action": [
@@ -43,8 +43,8 @@
             "Effect": "Allow",
             "Principal": {
                 "AWS": [
-                    "arn:aws:iam::305903536655:user/StandardUser1",
-                    "arn:aws:iam::305903536655:role/ApplicationRole"
+                    "arn:aws:iam::305903536655:user/*",
+                    "arn:aws:iam::305903536655:role/*"
                 ]
             },
             "Action": [
@@ -61,7 +61,7 @@
             "Effect": "Allow",
             "Principal": {
                 "AWS": [
-                    "arn:aws:iam::305903536655:role/ApplicationRole"
+                    "arn:aws:iam::305903536655:role/*"
                 ]
             },
             "Action": [
