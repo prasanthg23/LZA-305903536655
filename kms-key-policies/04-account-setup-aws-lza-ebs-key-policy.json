@@ -42,7 +42,7 @@
             "Effect": "Allow",
             "Principal": {
                 "AWS": [
-                    "arn:aws:iam::305903536655:root
+                    "arn:aws:iam::305903536655:root"
                 ]
             },
             "Action": [
