@@ -16,8 +16,7 @@
             "Effect": "Allow",
             "Principal": {
                 "AWS": [
-                    "arn:aws:iam::305903536655:user/*",
-                    "arn:aws:iam::305903536655:role/*"
+                    "arn:aws:iam::305903536655:root"
                 ]
             },
             "Action": [
@@ -43,8 +42,7 @@
             "Effect": "Allow",
             "Principal": {
                 "AWS": [
-                    "arn:aws:iam::305903536655:user/*",
-                    "arn:aws:iam::305903536655:role/*"
+                    "arn:aws:iam::305903536655:root
                 ]
             },
             "Action": [
@@ -61,7 +59,7 @@
             "Effect": "Allow",
             "Principal": {
                 "AWS": [
-                    "arn:aws:iam::305903536655:role/*"
+                    "arn:aws:iam::305903536655:root"
                 ]
             },
             "Action": [
