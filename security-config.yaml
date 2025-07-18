@@ -67,15 +67,15 @@ cloudWatch:
           - Training
 
 keyManagementService:
-  keySets:
-  # 04-account-setup-localEbsKey
-  - name: aws-lza-ebs-key
-    deploymentTargets:
-      organizationalUnits:
-        - Sandbox
-    alias: alias/aws-lza-ebs
-    policy: kms-key-policies/04-account-setup-aws-lza-ebs-key-policy.json
-    description: ABS Account EBS Encryption Key
-    enabled: true
-    enableKeyRotation: true
-    removalPolicy: destroy
+  keySets: []
+  # # 04-account-setup-localEbsKey
+  # - name: aws-lza-ebs-key
+  #   deploymentTargets:
+  #     organizationalUnits:
+  #       - Sandbox
+  #   alias: alias/aws-lza-ebs
+  #   policy: kms-key-policies/04-account-setup-aws-lza-ebs-key-policy.json
+  #   description: ABS Account EBS Encryption Key
+  #   enabled: true
+  #   enableKeyRotation: true
+  #   removalPolicy: destroy
