@@ -28,9 +28,9 @@ centralSecurityServices:
       exportFrequency: FIFTEEN_MINUTES
   securityHub:
     enable: false
-    regionAggregation: false
-    # excludeRegions: []
-    standards: []
+    # regionAggregation: false
+    # # excludeRegions: []
+    # standards: []
   ssmAutomation:
     excludeRegions: []
     documentSets: []
