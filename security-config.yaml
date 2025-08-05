@@ -29,7 +29,7 @@ centralSecurityServices:
   securityHub:
     enable: false
     regionAggregation: false
-    excludeRegions: []
+    # excludeRegions: []
     standards: []
   ssmAutomation:
     excludeRegions: []
