@@ -30,7 +30,7 @@ centralSecurityServices:
     enable: false
     # regionAggregation: false
     # # excludeRegions: []
-    # standards: []
+    standards: []
   ssmAutomation:
     excludeRegions: []
     documentSets: []
